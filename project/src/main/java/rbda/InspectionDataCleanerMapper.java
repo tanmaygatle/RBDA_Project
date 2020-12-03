@@ -27,7 +27,7 @@ public class InspectionDataCleanerMapper extends Mapper<LongWritable, Text, Long
                 change = !change;
             }
             if(change && result.charAt(i)==',') {
-                result.setCharAt(i, '|');
+                result.setCharAt(i, '=');
             }
         }
         context.write(key, new Text(result.toString()));
