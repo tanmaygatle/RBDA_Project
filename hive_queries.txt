@@ -5,3 +5,5 @@ create external table NYC_MENUDATA (menu_item_id int, year int, restaurant_item_
 create external table yelp_metadata (userid int, productid int, rating float, label int, dateid date) row format delimited fields terminated by '\t' location '/user/tvg238/YelpData/Metadata';
 
 create external table yelp_productidmapping (restaurant_name string, productid int) row format delimited fields terminated by '\t' location '/user/tvg238/YelpData/Productidmapping';
+
+create external table yelp_reviews (restaurant_name string, productid string, rating double) row format delimited fields terminated by '\t' location '/user/yd1568/ProjectData/Yelp' tblproperties ("skip.header.line.count"="1");
