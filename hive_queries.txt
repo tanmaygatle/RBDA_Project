@@ -6,4 +6,9 @@ create external table yelp_metadata (userid int, productid int, rating float, la
 
 create external table yelp_productidmapping (restaurant_name string, productid int) row format delimited fields terminated by '\t' location '/user/tvg238/YelpData/Productidmapping';
 
-create external table yelp_reviews (restaurant_name string, productid string, rating double) row format delimited fields terminated by '\t' location '/user/yd1568/ProjectData/Yelp' tblproperties ("skip.header.line.count"="1");
+create external table yelp_reviews(restaurant_name string, productid int, rating double) row format delimited fields terminated by '=' location '/user/yd1568/ProjectData/Yelp';
+
+create external table yelp_rating (restaurant_name string, avg_rating double) row format delimited fields terminated by '=' location '/user/yd1568/ProjectData/Yelp_Rating';
+
+with inspection_count as (select dba, count(*) as cnt from nyc_inspection where length(violation_code)>0 group by dba) 
+	select A.dba, A.cnt, B.avg_rating from inspection_count A JOIN yelp_rating B ON UPPER(A.dba) = UPPER(B.restaurant_name);
